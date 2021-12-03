@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Detecting the extent of screen damage in mobile phones</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <style>
+
+.hero {
+  background: url(static/images/bannerbg.jpg) no-repeat center center fixed; 
+}
+
+  </style>
+  <style>
+
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed, 
+    figure, figcaption, footer, header, hgroup, 
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+    }
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure, 
+    footer, header, hgroup, menu, nav, section {
+      display: block;
+    }
+    body {
+      line-height: 1;
+    }
+    ol, ul {
+      list-style: none;
+    }
+    blockquote, q {
+      quotes: none;
+    }
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+      content: '';
+      content: none;
+    }
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+    body{
+      font-family: 'Poppins', sans-serif  !important;
+    }
+    .homepage {
+        background: url(static/images/bannerbg.jpg) no-repeat center center fixed;
+        height: 100vH; 
+    }
+    .classify-page .container{
+        max-width: 1170px;
+    }
+    .banner-heading{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 46px;
+    line-height: 69px;
+    text-align: center;
+    color: #FFFBFB;
+    position: relative;
+    margin-bottom: 0;
+    }
+    .banner-heading::after{
+      position: absolute;
+      content: "";
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      background: #FFE662;
+    height: 2px;
+    width: 282px;
+    bottom: -40px;
+    }
+    .classify-bannerheading::after{
+        background: #FFFFFF;
+    }
+    .banner-subheading{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 39px;
+    text-align: center;
+    color: #FFFFFF;
+    margin-top: 70px;
+    }
+    .white-button{
+        background: #FFFFFF;
+        border: 1px solid #FFFFFF;
+        box-sizing: border-box;
+        border-radius: 5px;
+        font-size: 16px;
+        line-height: 27px;
+        text-align: center;
+        color: #000000;
+        padding: 4px 10px;
+        font-weight: normal;
+    }
+    .white-button:hover{
+        background: #000;
+        border: 1px solid #fff;
+        color: #fff;
+    }
+    .transparent-button{
+        background: transparent;
+        border: 1px solid #FFFFFF;
+        box-sizing: border-box;
+        border-radius: 5px;
+        font-size: 16px;
+        line-height: 27px;
+        text-align: center;
+        color: #fff;
+        padding: 4px 10px;
+        font-weight: normal;
+    }
+    .transparent-button:hover{
+        background: #fff;
+        border: 1px solid #000;
+        color: #000;
+    }
+    .classify-button{
+    background: #FFE662;
+    border: 1px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    color: #000000;
+    margin-top: 40px;
+    padding: 4px 52px;
+    }
+    .classify-button:hover{
+        background: #000000;
+        border: 1px solid #FFE662;
+        color: #FFE662;    
+    }
+    .mobile-img img{
+        max-height: 335px;
+    }
+    .mobile-type{
+        background: rgba(0, 0, 0, 0.4);
+        padding: 16px;
+        margin-bottom: 10px;
+    }
+    .type-heading{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 39px;
+    color: #FFE662;
+    margin-bottom: 0px;
+    }
+    .type-content{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 27px;
+    color: #FFFBFB;
+    margin-bottom: 0px;
+    }
+    .mobile-property .transparent-button{
+        padding: 5px 21px;
+        font-weight: 300  !important;
+        margin-top: 5px;
+        display: inline-block;
+    }
+        </style>
+
+  </head>
+
+  
+<body>
+
+<!-- .hero -->
+<section class="hero is-fullheight h-100" has-background-black>
+    <div class="container">
+      <div class="d-flex flex-column justify-content-center align-items-center" style="height: 100vH;">
+      <h1 class="display-4 text-center text-white fw-bolder" data-aos="zoom-in" data-aos-duration="1500">
+        Detecting the extent of screen damage in mobile phones
+      </h1>
+      <p class="text-white fs-3 fw-normal text-center" data-aos="zoom-in" data-aos-duration="2400">
+        Please upload the image of your smart phone.
+      </p>
+      <form action="/classify" class="mt-4" method="post" enctype="multipart/form-data" style="width: 80%;" data-aos="zoom-in" data-aos-duration="3000">
+        <div class="file has-name is-centered">     
+          <label class="file-label">
+          <input class="file-input" type="file" id="image" name = "image">
+          <span class="file-cta">
+            <span class="file-label">
+            Upload an image
+            </span>
+          </span>
+          <span class="file-name text-white" id="file-name">
+            No file chosen
+          </span>
+  
+          </label>
+        </div>
+        <br>
+        <input type="submit" value="Classify" class="button is-black text-center d-flex justify-content-center margin-auto" name = "image" id="classify_button" style="margin: 0 auto;">
+      </form>
+      </div>
+    </div>   
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+</body>
+</html>
